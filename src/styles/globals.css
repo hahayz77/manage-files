@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+.hover {
+  @apply hover:opacity-80 hover:scale-[102%] duration-200 ease-in-out cursor-pointer
+}
