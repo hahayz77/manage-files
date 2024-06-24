@@ -3,7 +3,7 @@ import { File } from 'formidable'
 import mime from 'mime-types'
 import fs from 'fs'
 
-const storage = new Storage({
+export const storage: Storage = new Storage({
   projectId: process.env.PROJECT_ID || "",
   credentials: {
     client_email: process.env.CLIENT_EMAIL,
@@ -11,7 +11,7 @@ const storage = new Storage({
   }
 })
 
-const bucket = storage.bucket(process.env.BUCKET_NAME || "")
+export const bucket = storage.bucket(process.env.BUCKET_NAME || "")
 
 const uploadFile = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
