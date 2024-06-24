@@ -3,11 +3,13 @@ import { File } from 'formidable'
 import mime from 'mime-types'
 import fs from 'fs'
 
+const privateKey = process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY.replace(/\\n/g, '\n') : "";
+
 export const storage: Storage = new Storage({
   projectId: process.env.PROJECT_ID || "",
   credentials: {
     client_email: process.env.CLIENT_EMAIL,
-    private_key: process.env.PRIVATE_KEY?.replace(/\\n/gm, "\n"),
+    private_key: privateKey,
   }
 })
 
