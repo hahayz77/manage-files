@@ -7,8 +7,6 @@ const credentials = JSON.parse(
   Buffer.from(process.env.JSON_KEYS ? process.env.JSON_KEYS : "", "base64").toString()
 );
 
-console.log(credentials)
-
 export const storage: Storage = new Storage({
   projectId: credentials.projectId || "",
   credentials: {
