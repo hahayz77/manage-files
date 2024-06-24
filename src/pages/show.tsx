@@ -3,6 +3,7 @@ import { bucket } from "@/utils/googleStorage"
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const getStaticProps: GetStaticProps = async () => {
     const [bucketFiles] = await bucket.getFiles({ prefix: process.env.BUCKET_FOLDER_NAME })
@@ -68,7 +69,7 @@ const ImageList: React.FC<Props> = ({ fileUrls, folderName }) => {
                     <div className='file_wrapper relative' key={index}>
                         <Link href={url} target="_blank" passHref>
                             <figure className='h-40 w-60'>
-                                <img className='w-full h-full object-cover' src={url} alt={`Image ${index}`} />
+                                <Image src={url} className='w-full h-full object-cover' width={300} height={300} alt={`Image ${index}`} />
                             </figure>
                         </Link>
                         <div className="hover controls_wrapper flex justify-evenly text-sm absolute top-0 right-0 p-2">
