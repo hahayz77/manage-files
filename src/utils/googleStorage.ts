@@ -3,13 +3,17 @@ import { File } from 'formidable'
 import mime from 'mime-types'
 import fs from 'fs'
 
-const privateKey = process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY.replace(/\\n/g, '\n') : "";
+const credentials = JSON.parse(
+  Buffer.from(process.env.JSON_KEYS ? process.env.JSON_KEYS : "", "base64").toString()
+);
+
+console.log(credentials)
 
 export const storage: Storage = new Storage({
-  projectId: process.env.PROJECT_ID || "",
+  projectId: credentials.projectId || "",
   credentials: {
-    client_email: process.env.CLIENT_EMAIL,
-    private_key: privateKey,
+    client_email: credentials.client_email,
+    private_key: credentials.private_key
   }
 })
 
