@@ -1,11 +1,11 @@
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { bucket } from "@/utils/googleStorage"
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const [bucketFiles] = await bucket.getFiles({ prefix: process.env.BUCKET_FOLDER_NAME })
 
     const fileUrls = bucketFiles.slice(1).map(file => ({
@@ -18,7 +18,6 @@ export const getStaticProps: GetStaticProps = async () => {
             fileUrls,
             folderName: process.env.BUCKET_FOLDER_NAME
         },
-        revalidate: 30
     }
 }
 
