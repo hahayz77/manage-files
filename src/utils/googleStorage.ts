@@ -4,15 +4,18 @@ import mime from 'mime-types'
 import fs from 'fs'
 
 const storage = new Storage({
-  keyFilename: 'src/utils/apikey.json',
-  projectId: 'masterclindrive'
+  projectId: process.env.PROJECT_ID || "",
+  credentials: {
+    client_email: process.env.CLIENT_EMAIL,
+    private_key:  process.env.PRIVATE_KEY,
+  }
 })
 
-const bucket = storage.bucket('master_clin_bucket')
+const bucket = storage.bucket(process.env.BUCKET_NAME || "")
 
 const uploadFile = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const blobName = `test-page/${file.originalFilename}-${file.newFilename}`
+    const blobName = `${process.env.BUCKET_FOLDER_NAME}/${file.originalFilename}-${file.newFilename}`
     const blob = bucket.file(blobName)
 
     const contentType = mime.lookup(file.originalFilename ?? "") || 'application/octet-stream'
